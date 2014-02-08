@@ -5,6 +5,11 @@ if [ -f ~/.bashrc ]; then
 	. ~/.bashrc
 fi
 
+# Some specific purpose aliases
+if [ -f ~/.aliases ]; then
+	. ~/.aliases
+fi
+
 # User specific environment and startup programs
 
 PATH=$PATH:$HOME/.local/bin:$HOME/bin
@@ -17,4 +22,3 @@ export PROJECT_HOME=$HOME/work
 export VIRTUALENVWRAPPER_SCRIPT=/usr/bin/virtualenvwrapper.sh
 source /usr/bin/virtualenvwrapper_lazy.sh
 
-alias rmpyc='find . -name "*.pyc" -exec rm -rf {} \;'

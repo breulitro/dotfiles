@@ -1,0 +1,3 @@
+# .aliases
+
+alias rmpyc='find . -name "*.pyc" -exec rm -rf {} \;'

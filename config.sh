@@ -2,11 +2,18 @@
 
 dir=`pwd`
 foundsdir="$dir/dotfiles_found"
-files="vimrc bash_profile"
+files="vimrc bash_profile aliases"
 
-mkdir -p $olddir
+mkdir -p $foundsdir
+
 cd $dir
 for file in $files; do
-    mv ~/.$file $foundsdir
+	if [ -h ~/.$file ]; then
+		unlink ~/.$file
+	elif [ -f ~/.$file ]; then
+	    mv ~/.$file $foundsdir
+	fi
+
+
     ln -s $dir/$file ~/.$file
 done
