@@ -2,7 +2,7 @@
 
 dir=`pwd`
 foundsdir="$dir/dotfiles_found"
-files="vimrc bash_profile aliases"
+files="vimrc bash_profile aliases tmux.conf"
 
 cd $dir
 for file in $files; do
