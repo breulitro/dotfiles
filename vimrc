@@ -1,3 +1,43 @@
+execute pathogen#infect()
+filetype plugin indent on
+
+set nocompatible      " We're running Vim, not Vi!
+syntax on             " Enable syntax highlighting
+filetype on           " Enable filetype detection
+filetype indent on    " Enable filetype-specific indenting
+filetype plugin on    " Enable filetype-specific plugins
+
+autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
+autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
+autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
+
+"map <S-CR>    <CR><CR>end<Esc>-cc
+
+
+
+if !exists( "*RubyEndToken" )
+
+  function RubyEndToken()
+    let current_line = getline( '.' )
+    let braces_at_end = '{\s*\(|\(,\|\s\|\w\)*|\s*\)\?$'
+    let stuff_without_do = '^\s*\(class\|if\|unless\|begin\|case\|for\|module\|while\|until\|def\)'
+      let with_do = 'do\s*\(|\(,\|\s\|\w\)*|\s*\)\?$'
+
+      if match(current_line, braces_at_end) >= 0
+        return "\<CR>}\<C-O>O"
+      elseif match(current_line, stuff_without_do) >= 0
+        return "\<CR>end\<C-O>O"
+      elseif match(current_line, with_do) >= 0
+        return "\<CR>end\<C-O>O"
+      else
+        return "\<CR>"
+      endif
+    endfunction
+
+endif
+
+imap <buffer> <CR> <C-R>=RubyEndToken()<CR>
+
 if v:lang =~ "utf8$" || v:lang =~ "UTF-8$"
 	set fileencodings=ucs-bom,utf-8,latin1
 endif
@@ -12,19 +52,19 @@ set ruler		" show the cursor position all the time
 set bg=dark
 set noerrorbells
 
-" Follows coding standard of UEFI
-"set tabstop=2
-"set shiftwidth=2
-"set softtabstop=2
+" Follows coding standard of UEFI & Ruby
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
 "set expandtab
 "set textwidth=80
 "set showmatch
 "set ff=dos
 
 " Commenting due to UEFI coding standard
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
+"set tabstop=4
+"set shiftwidth=4
+"set softtabstop=4
 set textwidth=80
 set showmatch
 
